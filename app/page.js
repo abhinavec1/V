@@ -1,95 +1,60 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import {useState} from "react";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    const [selectedMsg, setSelectedMsg] = useState(0)
+    const [isAgreed, setIsAgreed] = useState(false)
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    const dangerMessages = [
+        'Niiii',
+        'I will be sad if you press this :(',
+        'Haa bolo na baby',
+        'Mera chottu baby, pleasssssssse',
+        'Haa bolo',
+        'Mai kbhi baat nhi krunga fir',
+        'Achi baby bno aur haa bolo',
+        'Aakhri baar pooch rha hu',
+        'Ab Haa bolna hi padega'
+    ]
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    return (
+        <main className={'app-main'} style={{background: `${isAgreed ? `url(/bg.avif)` : ''}`}}>
+            <div className={'content-main'}>
+                <div className={'animation'}>
+                    {isAgreed ?
+                        <img src="/a.gif" alt="GIF Image" />
+                        :
+                        <img src="/q.gif" alt="GIF Image" />
+                    }
+                </div>
+                <div className={'heading'}>
+                    {isAgreed ?
+                        'Yayyy!! I love you chottu baby'
+                        :
+                        ''
+                    }
+                </div>
+                {!isAgreed &&
+                    <div className={'action-buttons'}>
+                        <button
+                            className={'primary'}
+                            onClick={() => setIsAgreed(true)}
+                        >
+                            Yes
+                        </button>
+                        <button
+                            className={'danger'}
+                            disabled={selectedMsg === dangerMessages.length - 1}
+                            onClick={() => setSelectedMsg(selectedMsg + 1)}
+                        >
+                            {dangerMessages[selectedMsg]}
+                        </button>
+                    </div>
+                }
+            </div>
+        </main>
+    );
 }
